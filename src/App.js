@@ -1,47 +1,22 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React,{useMemo,useState} from 'react'
 
-import Lifecycles from './lifecycles.component';
-
-class App extends React.Component {
-  constructor() {
-    super();
-
-    this.state = {
-      showChild: true,
-      text: ''
-    };
+const App = () => {
+  const [count,setCount] = useState(0)
+  function Sum({a,b}){
+    return <div>Sum {a+b}</div>
   }
-
-  render() {
-    return (
-      <div className='App'>
-        <header className='App-header'>
-          <img src={logo} className='App-logo' alt='logo' />
-          <button
-            onClick={() =>
-              this.setState(state => ({
-                showChild: !state.showChild
-              }))
-            }
-          >
-            Toggle Lifecycles
-          </button>
-          <button
-            onClick={() =>
-              this.setState(state => ({
-                text: state.text + '_hello'
-              }))
-            }
-          >
-            Update Text
-          </button>
-          {this.state.showChild ? <Lifecycles text={this.state.text} /> : null}
-        </header>
+  return (
+    <div className="App">
+      <h3>React.Memo vs useMemo vs shouldComponentUpdate</h3>
+      <div>Count: {count}</div>
+      <div>
+        <button onClick={()=>setCount(old=>old+1)}>Increment</button>
       </div>
-    );
-  }
+      <hr/>
+      <Sum a={count} b={count*2}/>
+    </div>
+    
+  );
 }
 
 export default App;
